@@ -16,7 +16,7 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                sh "curl -X GET '${https://api.render.com/deploy/srv-d1a7fc2li9vc73asi0og?key=5PlyRLAlyfQ}'"
+                sh "curl -X GET '${RENDER_DEPLOY_HOOK}'"
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 slackSend(
                     channel: "${SLACK_CHANNEL}",
-                    message: "✅ *Build #${BUILD_NUMBER}* deployed!\n🌍 Live: ${https://gallery-y43o.onrender.com}"
+                    message: "✅ *Build #${BUILD_NUMBER}* deployed!\n🌍 Live: ${RENDER_URL}"
                 )
             }
         }
