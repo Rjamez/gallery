@@ -4,7 +4,7 @@ pipeline {
     environment {
         RENDER_DEPLOY_HOOK = 'https://api.render.com/deploy/srv-d1a7fc2li9vc73asi0og?key=5PlyRLAlyfQ'
         RENDER_URL = 'https://gallery-y43o.onrender.com'
-        SLACK_CHANNEL = '#YourFirstName_IP1'  // replace with your actual Slack channel
+        SLACK_CHANNEL = 'JenkinsBot' 
     }
 
     stages {
