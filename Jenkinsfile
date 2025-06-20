@@ -4,7 +4,7 @@ pipeline {
     environment {
         RENDER_DEPLOY_HOOK = 'https://api.render.com/deploy/srv-d1a7fc2li9vc73asi0og?key=5PlyRLAlyfQ'
         RENDER_URL = 'https://gallery-y43o.onrender.com'
-        SLACK_CHANNEL = '#YourFirstName_IP1'
+        SLACK_CHANNEL = '#YourFirstName_IP1'  // replace with your actual Slack channel
     }
 
     stages {
@@ -24,7 +24,11 @@ pipeline {
             steps {
                 slackSend(
                     channel: "${SLACK_CHANNEL}",
-                    message: "✅ *Build #${BUILD_NUMBER}* deployed!\n🌍 Live: ${RENDER_URL}"
+                    message: "✅ *Build #${BUILD_NUMBER}* deployed!\n🌍 Live: ${RENDER_URL}",
+                    tokenCredentialId: 'slack-token',
+                    color: 'good',
+                    iconEmoji: ':rocket:',
+                    username: 'JenkinsBot'
                 )
             }
         }
@@ -39,6 +43,15 @@ pipeline {
             mail to: 'robin.adhola@student.moringaschool.com',
                  subject: "Build Failed - #${BUILD_NUMBER}",
                  body: "Build ${BUILD_NUMBER} failed. Visit ${BUILD_URL} for logs."
+
+            slackSend(
+                channel: "${SLACK_CHANNEL}",
+                message: "❌ *Build #${BUILD_NUMBER}* failed. Check logs: ${BUILD_URL}",
+                tokenCredentialId: 'slack-token',
+                color: 'danger',
+                iconEmoji: ':x:',
+                username: 'JenkinsBot'
+            )
         }
     }
 }
