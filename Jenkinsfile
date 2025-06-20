@@ -16,14 +16,29 @@ pipeline {
 
         stage('Deploy to Render') {
             steps {
-                sh "curl -X GET ${env.https://api.render.com/deploy/srv-d1a7fc2li9vc73asi0og?key=5PlyRLAlyfQ}"
+                sh "curl -X GET '${https://api.render.com/deploy/srv-d1a7fc2li9vc73asi0og?key=5PlyRLAlyfQ}'"
+            }
+        }
+
+        stage('Notify Slack') {
+            steps {
+                slackSend(
+                    channel: "${SLACK_CHANNEL}",
+                    message: "✅ *Build #${BUILD_NUMBER}* deployed!\n🌍 Live: ${https://gallery-y43o.onrender.com}"
+                )
             }
         }
     }
 
     post {
-        always {
-            echo "Milestone 2 pipeline complete."
+        success {
+            echo "Pipeline completed."
+        }
+
+        failure {
+            mail to: 'robin.adhola@student.moringaschool.com',
+                 subject: "Build Failed - #${BUILD_NUMBER}",
+                 body: "Build ${BUILD_NUMBER} failed. Visit ${BUILD_URL} for logs."
         }
     }
 }
