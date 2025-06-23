@@ -4,7 +4,7 @@ pipeline {
     environment {
         RENDER_DEPLOY_HOOK = 'https://api.render.com/deploy/srv-d1a7fc2li9vc73asi0og?key=5PlyRLAlyfQ'
         RENDER_URL = 'https://gallery-y43o.onrender.com'
-        SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'  
+        SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
     }
 
     stages {
@@ -23,11 +23,11 @@ pipeline {
         stage('Notify Slack') {
             steps {
                 script {
-                    def message = "✅ *Build #${env.BUILD_NUMBER}* deployed!\n🌍 Live: ${env.RENDER_URL}"
+                    def message = "✅ *Build #${env.BUILD_NUMBER}* deployed!\\n🌍 Live: ${env.RENDER_URL}"
                     sh """
                         curl -X POST -H 'Content-type: application/json' \
                         --data '{"text": "${message}"}' \
-                        ${SLACK_WEBHOOK_URL}
+                        '${SLACK_WEBHOOK_URL}'
                     """
                 }
             }
@@ -49,7 +49,7 @@ pipeline {
                 sh """
                     curl -X POST -H 'Content-type: application/json' \
                     --data '{"text": "${failMessage}"}' \
-                    ${SLACK_WEBHOOK_URL}
+                    '${SLACK_WEBHOOK_URL}'
                 """
             }
         }
