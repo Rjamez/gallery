@@ -45,13 +45,14 @@ pipeline {
                  body: "Build ${BUILD_NUMBER} failed. Visit ${BUILD_URL} for logs."
 
             slackSend(
-                channel: "${#new-channel}",
-                message: "❌ *Build #${BUILD_NUMBER}* failed. Check logs: ${BUILD_URL}",
-                tokenCredentialId: 'slack-token',
-                color: 'danger',
-                iconEmoji: ':x:',
-                username: 'JenkinsBot'
-            )
+                    channel: "#${newChannel}",
+                    message: "❌ *Build #${BUILD_NUMBER}* failed. Check logs: ${BUILD_URL}",
+                    tokenCredentialId: 'slack-token',
+                    color: 'danger',
+                    iconEmoji: ':x:',
+                    username: 'JenkinsBot'
+)
+
         }
     }
 }
