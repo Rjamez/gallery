@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        MONGO_URI = credentials('mongodb+srv://robinadhola:9c5379IP8KZnNwHA@cluster0.m6dxfou.mongodb.net/darkroom-dev?retryWrites=true&w=majority&appName=Cluster0')
+        MONGO_URI = credentials('mongo-uri')
         SLACK_WEBHOOK = credentials('slack-webhook-url')
         NOTIFY_EMAIL = 'robin.adhola@student.moringaschool.com' 
         RENDER_URL = 'https://gallery-y43o.onrender.com'
